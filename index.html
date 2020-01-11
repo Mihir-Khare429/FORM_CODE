@@ -1,0 +1,74 @@
+<head>
+    <link rel='stylesheet' type="text/css" href="style.css">
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+        const formdata= document.getElementById('form')
+        formdata.addEventListener('submit',function(e){
+          e.preventDefault();
+
+          const form1= new FormData(this);
+
+          fetch('http://adg-task-picker.herokuapp.com/newMember',{
+            method: 'post',
+            body: form1
+          }).then(function(response) {
+            return response.text();
+          }).then(function(text) {
+            console.log(text);
+          }).catch(function (error) {
+            console.log(error);
+          })
+        });
+        $("#form").submit(function(e) {
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var url = form.attr('action');
+
+    $.ajax({
+           type: "POST",
+           url: "https://adg-task-picker.herokuapp.com/newMember",
+           data: form.serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               alert(data); // show response from the php script.
+           },
+        error:{
+            console.log(error)
+        }
+         });
+
+
+});
+    </script>
+</head>
+<div class="login-page">
+  <div class="form">
+    <form class="login-form" id='form' method="POST">
+      <input type="text" placeholder="NAME" name="Name" id='a' required/>
+        <input type="text" placeholder="REGISTRATION NUMBER" name="Regno" id="reg" required/>
+      <input type="email" placeholder="EMAIL" name="email" id='em' required/>
+      <input type="text" placeholder="PHONE NUMBER" name="Phono" id='phn' required/>
+     <select name="block" id='bl'>
+     <option>BLOCK</option>
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+    <option value="E">E</option>
+    <option value="F">F</option>
+        </select>
+      <input type="number" placeholder="ROOM NUMBER" name="Roono" id='rn' required/>
+      <input type="text" placeholder="ACCESS CODE" name="Accno" id='acno' required/>
+        <select name="gender" id='gen'>
+     <option>GENDER</option>
+    <option value="0">Male</option>
+    <option value="1">Female</option>
+            </select>
+       <input type="file" name="pic" accept="image/*" id='fil'placeholder='UPLOAD TIMETABLE'>
+      <button type="submit" id='sub1'>SUBMIT</button>
+    </form>
+  </div>
+</div>
